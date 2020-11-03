@@ -1,0 +1,11 @@
+---
+title: "practice"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+Welcome to Karina's Website 
+
+![]

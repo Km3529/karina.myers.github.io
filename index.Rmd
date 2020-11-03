@@ -1,0 +1,16 @@
+---
+title: "Karina's Website
+"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+---
+
+# Welcome to Karina's site
+
+Adding text 
+
+## Here's a subsection
+and some additional text 
