@@ -12,7 +12,7 @@ salmonella avenger
 <img src="image/headshot.jpeg" style="width:50%">
 
 
-## In non 
+## Add other text  
 
 
 

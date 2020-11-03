@@ -1,0 +1,14 @@
+---
+title: "Outside the Classroom"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+Outside the classroom, you can find me running through the streets of New York City, watering plants, or eating non-dairy ice cream. I also enjoy a bit of Epi Poetry. 
+
+<img src="image/epi_poem.jpeg" style="width:50%">
+
+<img src="image/poem.png" style="width:50%">
+

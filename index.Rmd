@@ -6,12 +6,7 @@ output:
     toc_float: true
 ---
 
-# Welcome to Karina's site
-
-Adding text 
-
-## Here's a subsection
-and some additional text 
+## Welcome!
 
 ![](https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif)
 
