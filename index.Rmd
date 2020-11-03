@@ -1,18 +1,34 @@
 ---
-title: "Karina's Website"
+title: "Karina"
 output: 
   html_document:
     toc: true
     toc_float: true
 ---
 
-## Welcome!
+## About Me
 
-![](https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif)
+<img src="image/headshot.jpeg" style="width:50%">
 
-Live footage of me attempting to code 
+Hi There! 
+I am an MPH Epidemiology student at the Mailman School of Public Health at [Columbia University](https://www.publichealth.columbia.edu/academics/departments/epidemiology). 
+I am currently an intern at the New York City Department of Health and Mental Hygiene, where I work on foodborne disease surveillance. 
 
-[About me](about.html)
+
+## Learn More
+Learn about my experience on [ LinkedIn](https://www.linkedin.com/in/karina-myers-268a99b1/) and [here!](about.html)
+
+
+[Outside the Classroom](outside.html)
+
+
+
+<img src="image/animal.jpeg" style="width:75%">
+
+
+
+
+
 
 
 
