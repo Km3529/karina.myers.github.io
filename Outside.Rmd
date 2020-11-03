@@ -6,7 +6,7 @@ output:
     toc_float: true
 ---
 
-Outside the classroom, you can find me running through the streets of New York City, watering plants, or eating non-dairy ice cream. I also enjoy a bit of Epi Poetry. 
+Outside the classroom, you can find me running through the streets of New York City, watering plants, or eating non-dairy ice cream. I also enjoy a bit of Epi Poetry.  
 
 <img src="image/epi_poem.jpeg" style="width:50%">
 
