@@ -9,7 +9,19 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(tidyverse)
+library(p8105.datasets)
+
+data("rest_inspec")
+
+
+rest_insp = 
+  rest_inspec %>% 
+  filter(grade %in% c("A", "B", "C"), boro != "Missing")
+
 ```
+I excluded pending grades and information where the borough is missing 
+
 
 Column {data-width=650}
 -----------------------------------------------------------------------
@@ -34,3 +46,7 @@ Column {data-width=350}
 ```{r}
 
 ```
+
+
+
+
