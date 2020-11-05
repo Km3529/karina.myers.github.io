@@ -24,11 +24,19 @@ rest_insp =
 nyc_rest = 
   rest_insp %>% 
   sample_frac(size = .1)
-
-
-
 ```
-I excluded pending grades and information where the borough is missing 
+
+The New York City Department of Health and Mental Hygiene (DOHMH) conducts unannounced restaurant inspections on an annual basis in order to check for compliance with policies on food handling, food temperature, personal hygiene of restaurant workers, and vermin control. Regulation violations are each worth a pre-specified number of points, which are totaled at the end of the inspection. Scores are converted into grades, where a lower score earns a higher grade.
+Each violation falls into one of three categories:
+A public health hazard, such as failing to store food at an appropriate temperature, results in a minimum score of 7
+A critical violation, such as improperly washing raw vegetables prior to serving, results in a minimum score of 5
+A general violation, such as improperly sanitizing cookware, results in a minimum score of 2
+Additional points can then be assigned based on the severity of the violation, ranging from 1-5, at the discretion of the inspector.
+More details about the scoring and grading process can be found here.
+ excluded pending grades and information where the borough is missing 
+ 
+ 0-13 points is an A
+  B and those with 28 or more a C. I
 
 
 Column {data-width=650}
@@ -36,52 +44,72 @@ Column {data-width=650}
 
 ### Chart A
 
-```{r Boxplot}
-
-nyc_rest %>% 
-  separate(inspection_date, into = c("year", "month", "day")) %>% 
-  plot_ly(y = ~score, color = ~year, type = "box", colors = "viridis")
-
-nyc_rest %>% 
-  separate(inspection_date, into = c("year", "month", "day")) %>% 
-  plot_ly(y = ~score, color = ~year, type = "violin", colors = "viridis")
-
-
-nyc_rest %>% 
-  mutate(cuisine = fct_reorder(cuisine_description, score)) %>% 
-  plot_ly(y = ~score, color = ~cuisine_description, type = "violin", colors = "viridis")
-
-```
-
-Column {data-width=350}
------------------------------------------------------------------------
-
-### Chart B
-
-```{r Scatterplot}
-
-nyc_rest %>%
-  plot_ly(
-    x = ~inspection_date, y = ~score, type = "scatter", mode = "markers",
-    color = ~boro, text = ~violation_description, alpha = 0.5, colors = "viridis")
-
-```
-
-
-
-
-### Chart C
-
-```{r}
+```{r bargraph}
 nyc_rest %>%   
   separate(inspection_date, into = c("year", "month", "day")) %>% 
   count(year) %>% 
   mutate(year = fct_reorder(year, n)) %>% 
   plot_ly(x = ~year, y = ~n, color = ~year, type = "bar", colors = "viridis")
 
+```
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r Histogram}
+nyc_rest %>% 
+  plot_ly(x = ~score, type = "histogram", color = ~boro, colors = "viridis")
 
 ```
 
 
+### Chart C
+
+```{r Boxplot}
+nyc_rest %>% 
+  plot_ly(y = ~score, color = ~cuisine_description, type = "box", colors = "viridis")
+
+```
+
+
+### Chart D
+
+```{r}
+nyc_rest %>% 
+  plot_ly(x = ~violation_code , color = ~boro, type = "histogram", colors = "viridis", text = ~violation_description)
+```
+
+```{r}
+nyc_rest %>% 
+  count(violation_code, violation_description) %>% 
+  mutate(year = fct_reorder(violation_code, n)) %>% 
+  plot_ly(x = ~violation_code, y = ~n, type = "bar", text = ~violation_description) 
+  
+nyc_rest %>%
+  plot_ly(
+    x = ~inspection_date, y = ~score, type = "scatter", mode = "markers",
+    color = ~boro, text = ~violation_description, alpha = 0.5, colors = "viridis")
+  
+  
+ nyc_rest %>% 
+  plot_ly(x = ~cuisine_description, type = "histogram", color = ~boro)
+   
+
+nyc_rest %>%   
+  count(critial) %>% 
+  mutate(year = fct_reorder(year, n)) %>% 
+  plot_ly(x = ~year, y = ~n, color = ~year, type = "bar", colors = "viridis")
+```
+
+```{r}
+nyc_rest %>% 
+  filter(boro == "MANHATTAN") %>% 
+  plot_ly(
+     x = ~inspection_date, y = ~score, type = "scatter", mode = "markers", 
+    text = ~violation_description, alpha = 0.5, color = ~critical_flag, colors = "viridis")
+```
 
 
