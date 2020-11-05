@@ -19,8 +19,11 @@ data("rest_inspec")
 rest_insp = 
   rest_inspec %>% 
   filter(grade %in% c("A", "B", "C"), boro != "Missing") %>% 
-  select(-camis, -phone, -record_date, -grade_date) %>% 
-  separate(inspection_date, into = c("year", "month", "day"))
+  select(-camis, -phone, -record_date, -grade_date) 
+
+nyc_rest = 
+  rest_insp %>% 
+  sample_frac(size = .1)
 
 
 
@@ -35,6 +38,22 @@ Column {data-width=650}
 
 ```{r Boxplot}
 
+nyc_rest %>% 
+  separate(inspection_date, into = c("year", "month", "day")) %>% 
+  plot_ly(y = ~score, color = ~year, type = "box", colors = "viridis")
+
+nyc_rest %>% 
+  separate(inspection_date, into = c("year", "month", "day")) %>% 
+  plot_ly(y = ~score, color = ~year, type = "violin", colors = "viridis")
+
+nyc_rest %>% 
+  separate(inspection_date, into = c("year", "month", "day")) %>% 
+  plot_ly(y = ~score, color = ~boro, type = "violin", colors = "viridis")
+
+
+nyc_rest %>% 
+  mutate(cuisine = fct_reorder(cuisine_description, score)) %>% 
+  plot_ly(y = ~score, color = ~cuisine_description, type = "box", colors = "viridis")
 ```
 
 Column {data-width=350}
@@ -43,18 +62,18 @@ Column {data-width=350}
 ### Chart B
 
 ```{r Scatterplot}
-rest_insp %>%
-  ##mutate(text_label = str_c("Price: $", price, "\nRating: ", rating)) %>% 
+
+nyc_rest %>%
   plot_ly(
-    x = ~boro, y = ~score, type = "scatter", mode = "markers",
-    color = ~grade, text = ~violation_description, alpha = 0.5)
+    x = ~inspection_date, y = ~score, type = "scatter", mode = "markers",
+    color = ~boro, text = ~violation_description, alpha = 0.5, colors = "viridis")
+
 ```
 
-nyc_airbnb %>%
-  mutate(text_label = str_c("Price: $", price, "\nRating: ", rating)) %>% 
-  plot_ly(
-    x = ~lat, y = ~long, type = "scatter", mode = "markers",
-    color = ~price, text = ~text_label, alpha = 0.5)
+
+
+
+
 
 
 ### Chart C
