@@ -47,7 +47,7 @@ Column {data-width=650}
 ```{r histogram}
 nyc_rest %>%   
   separate(inspection_date, into = c("year", "month", "day")) %>% 
-  plot_ly(x = ~year, type = "histogram", color = ~boro, colors = "viridis")
+  plot_ly(x = ~year, type = "histogram", color = ~boro, colors = "viridis") 
 ```
 data was taken in october 
 
@@ -63,7 +63,7 @@ nyc_rest %>%
 
 
 ### Chart C
-
+Column {data-width=650}
 ```{r Boxplot}
 nyc_rest %>% 
   plot_ly(y = ~score, color = ~cuisine_description, type = "violin", colors = "viridis")
