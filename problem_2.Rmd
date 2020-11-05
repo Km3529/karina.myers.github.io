@@ -46,14 +46,11 @@ nyc_rest %>%
   separate(inspection_date, into = c("year", "month", "day")) %>% 
   plot_ly(y = ~score, color = ~year, type = "violin", colors = "viridis")
 
-nyc_rest %>% 
-  separate(inspection_date, into = c("year", "month", "day")) %>% 
-  plot_ly(y = ~score, color = ~boro, type = "violin", colors = "viridis")
-
 
 nyc_rest %>% 
   mutate(cuisine = fct_reorder(cuisine_description, score)) %>% 
-  plot_ly(y = ~score, color = ~cuisine_description, type = "box", colors = "viridis")
+  plot_ly(y = ~score, color = ~cuisine_description, type = "violin", colors = "viridis")
+
 ```
 
 Column {data-width=350}
@@ -73,12 +70,15 @@ nyc_rest %>%
 
 
 
-
-
-
 ### Chart C
 
 ```{r}
+nyc_rest %>%   
+  separate(inspection_date, into = c("year", "month", "day")) %>% 
+  count(year) %>% 
+  mutate(year = fct_reorder(year, n)) %>% 
+  plot_ly(x = ~year, y = ~n, color = ~year, type = "bar", colors = "viridis")
+
 
 ```
 
