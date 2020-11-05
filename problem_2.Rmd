@@ -11,13 +11,18 @@ output:
 library(flexdashboard)
 library(tidyverse)
 library(p8105.datasets)
+library(plotly)
 
 data("rest_inspec")
 
 
 rest_insp = 
   rest_inspec %>% 
-  filter(grade %in% c("A", "B", "C"), boro != "Missing")
+  filter(grade %in% c("A", "B", "C"), boro != "Missing") %>% 
+  select(-camis, -phone, -record_date, -grade_date) %>% 
+  separate(inspection_date, into = c("year", "month", "day"))
+
+
 
 ```
 I excluded pending grades and information where the borough is missing 
@@ -28,7 +33,7 @@ Column {data-width=650}
 
 ### Chart A
 
-```{r}
+```{r Boxplot}
 
 ```
 
@@ -37,9 +42,20 @@ Column {data-width=350}
 
 ### Chart B
 
-```{r}
-
+```{r Scatterplot}
+rest_insp %>%
+  ##mutate(text_label = str_c("Price: $", price, "\nRating: ", rating)) %>% 
+  plot_ly(
+    x = ~boro, y = ~score, type = "scatter", mode = "markers",
+    color = ~grade, text = ~violation_description, alpha = 0.5)
 ```
+
+nyc_airbnb %>%
+  mutate(text_label = str_c("Price: $", price, "\nRating: ", rating)) %>% 
+  plot_ly(
+    x = ~lat, y = ~long, type = "scatter", mode = "markers",
+    color = ~price, text = ~text_label, alpha = 0.5)
+
 
 ### Chart C
 
