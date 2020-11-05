@@ -2,8 +2,9 @@
 title: "NYC Restaurant Inspections"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
+    orientation: rows
+    source: embed
+    vertical_layout: scroll
 ---
 
 
@@ -14,8 +15,6 @@ library(p8105.datasets)
 library(plotly)
 
 data("rest_inspec")
-
-
 rest_insp = 
   rest_inspec %>% 
   filter(grade %in% c("A", "B", "C"), boro != "Missing") %>% 
@@ -39,9 +38,9 @@ More details about the scoring and grading process can be found here.
   B and those with 28 or more a C. I
 
 
-Column {data-width=650}
------------------------------------------------------------------------
 
+Row 
+-------------------------------------
 ### Chart A
 
 ```{r histogram}
@@ -49,10 +48,7 @@ nyc_rest %>%
   separate(inspection_date, into = c("year", "month", "day")) %>% 
   plot_ly(x = ~year, type = "histogram", color = ~boro, colors = "viridis") 
 ```
-data was taken in october 
 
-Column {data-width=350}
------------------------------------------------------------------------
 
 ### Chart B
 
@@ -61,10 +57,14 @@ nyc_rest %>%
   plot_ly(x = ~boro, y = ~score, type = "box", color = ~boro, colors = "viridis")
 ```
 
-
+Row {.tabset .tabset-fade}
+-------------------------------------
+   
 ### Chart C
-Column {data-width=650}
+
 ```{r Boxplot}
+
+
 nyc_rest %>% 
   plot_ly(y = ~score, color = ~cuisine_description, type = "violin", colors = "viridis")
 ```
@@ -75,6 +75,9 @@ nyc_rest %>%
 ```{r}
 nyc_rest %>% 
   plot_ly(x = ~violation_code , color = ~boro, type = "histogram", colors = "viridis", text = ~violation_description)
+
+
+
 ```
 
 

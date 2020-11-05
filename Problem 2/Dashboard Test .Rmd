@@ -9,6 +9,21 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+
+data("rest_inspec")
+
+
+rest_insp = 
+  rest_inspec %>% 
+  filter(grade %in% c("A", "B", "C"), boro != "Missing") %>% 
+  select(-camis, -phone, -record_date, -grade_date) 
+
+nyc_rest = 
+  rest_insp %>% 
+  sample_frac(size = .1)
 ```
 
 Column {data-width=650}
@@ -17,7 +32,9 @@ Column {data-width=650}
 ### Chart A
 
 ```{r}
-
+nyc_rest %>%   
+  separate(inspection_date, into = c("year", "month", "day")) %>% 
+  plot_ly(x = ~year, type = "histogram", color = ~boro, colors = "viridis") 
 ```
 
 Column {data-width=350}
