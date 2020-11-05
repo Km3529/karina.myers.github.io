@@ -48,7 +48,7 @@ nyc_rest %>%
 Row {.tabset .tabset-fade}
 -------------------------------------
    
-### Scores by Cruisine
+### Distribution of Scores by Cruisine
 
 ```{r violin}
 nyc_rest %>% 
@@ -60,17 +60,18 @@ nyc_rest %>%
 
 ```{r histogram, pt 2}
 nyc_rest %>% 
-  plot_ly(x = ~violation_code , color = ~boro, type = "histogram", colors = "viridis", text = ~violation_description)
+  plot_ly(x = ~violation_code, color = ~boro, type = "histogram", colors = "viridis", text = ~violation_description)
 ```
 
 
-### Scores in Manhattan Over Time
+### Average Annual Score by Cuisine Type
 
 ```{r}
 nyc_rest %>% 
-  filter(boro == "MANHATTAN") %>% 
+  separate(inspection_date, into = c("year", "month", "day")) %>% 
+  group_by(year, cuisine_description) %>% 
+  summarize(avg_score = mean(score)) %>% 
   plot_ly(
-     x = ~inspection_date, y = ~score, type = "scatter", mode = "markers", alpha = 0.5, color = ~grade, colors = "viridis")
+     x = ~year, y = ~avg_score, type = "scatter", mode = "line", alpha = 0.5, color = ~cuisine_description, colors = "viridis")
 ```
-
 
