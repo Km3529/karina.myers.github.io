@@ -24,7 +24,7 @@ nyc_rest =
   sample_frac(size = .1)
 ```
 
-The New York City Department of Health and Mental Hygiene conducts restaurant inspections on an annual basis to check for compliance with policies on food handling, food temperature, person hygiene of restaurant workers, and vermin control. Regulation violations are worth a pre-specified number of points. Scores are converted into grades, and lower scores earn higher grades. A's range from 0-13 points, B's range between 14-27, and C's are anything over C. This dataset includes a random 10% sample of restaurants that have been graded and do not have missing boro information. 
+The New York City Department of Health and Mental Hygiene conducts restaurant inspections on an annual basis to check for compliance with policies on food handling, food temperature, person hygiene of restaurant workers, and vermin control. Regulation violations are worth a pre-specified number of points. Scores are converted into grades, and lower scores earn higher grades. A's range from 0-13 points, B's range between 14-27, and C's are anything over C. This dataset includes a random sample of 18,820 restaurant inspections between 2013-2017 that do not have pending grades.  
 
 
 Row 
