@@ -1,0 +1,76 @@
+---
+title: "NYC Restaurant Inspections"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    source: embed
+    vertical_layout: scroll
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+
+data("rest_inspec")
+rest_insp = 
+  rest_inspec %>% 
+  filter(grade %in% c("A", "B", "C"), boro != "Missing") %>% 
+  select(-camis, -phone, -record_date, -grade_date) 
+
+nyc_rest = 
+  rest_insp %>% 
+  sample_frac(size = .1)
+```
+
+The New York City Department of Health and Mental Hygiene conducts restaurant inspections on an annual basis to check for compliance with policies on food handling, food temperature, person hygiene of restaurant workers, and vermin control. Regulation violations are worth a pre-specified number of points. Scores are converted into grades, and lower scores earn higher grades. A's range from 0-13 points, B's range between 14-27, and C's are anything over C. This dataset includes a random 10% sample of restaurants that have been graded and do not have missing boro information. 
+
+
+Row 
+-------------------------------------
+### Number of Inspections by Year
+
+```{r histogram}
+nyc_rest %>%   
+  separate(inspection_date, into = c("year", "month", "day")) %>% 
+  plot_ly(x = ~year, type = "histogram", color = ~boro, colors = "viridis") 
+```
+
+
+### Scores by Boro
+
+```{r Box}
+nyc_rest %>% 
+  plot_ly(x = ~boro, y = ~score, type = "box", color = ~boro, colors = "viridis")
+```
+
+Row {.tabset .tabset-fade}
+-------------------------------------
+   
+### Scores by Cruisine
+
+```{r violin}
+nyc_rest %>% 
+  plot_ly(y = ~score, color = ~cuisine_description, type = "violin", colors = "viridis")
+```
+
+
+### Types of Violations
+
+```{r histogram, pt 2}
+nyc_rest %>% 
+  plot_ly(x = ~violation_code , color = ~boro, type = "histogram", colors = "viridis", text = ~violation_description)
+```
+
+
+### Scores in Manhattan Over Time
+
+```{r}
+nyc_rest %>% 
+  filter(boro == "MANHATTAN") %>% 
+  plot_ly(
+     x = ~inspection_date, y = ~score, type = "scatter", mode = "markers", alpha = 0.5, color = ~grade, colors = "viridis")
+```
+
+
